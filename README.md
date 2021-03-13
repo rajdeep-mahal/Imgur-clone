@@ -1,18 +1,8 @@
-# CSC 317 Term Project
+## Purpose/Goal
 
-## Purpose
-
-The purpose of this repository is to store all the code for your web application. This also includes the history of all commits made and who made them. Only code submitted on the master branch will be graded.
-
-Please follow the instructions below and fill in the information requested when prompted.
-
-## Student Information
-
-|               | Information   |
-|:-------------:|:-------------:|
-| Student Name  | Rajdeep Singh     |
-| Student ID    | 920258882       |
-| Student Email | rsingh12@mail.sfsu.edu    |
+The goal of this project was to recreate the an imgur-like experience.
+It is image hosting service allows individuals to upload images.
+Imgur is an image hosting and sharing site. Imgur is home to the most awesome images on the Internet.
 
 
 ## Build/Run Instructions

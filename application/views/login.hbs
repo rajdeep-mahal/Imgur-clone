@@ -1,0 +1,37 @@
+<!-- Error -->
+<div id="error-container" class="small-container" hidden>
+    <div id="comment-no-user-alert" >
+        <div id="error-message" class="alert alert-danger " role="alert">
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <form id="login-form" action="/users/login" method="post" enctype="application/x-www-form-urlencoded">
+        <input id="redirect-input" type="hidden" name="redirect">
+        <fieldset class="fieldset-form">
+            <legend class="page-title">Log In</legend>
+            <label for="uname">User Name</label>
+            <input class="input-field" type="text" id="displayNameInput" class="form-control" name="displayName" placeholder="Username or Email Address" required >
+
+            <label for="psw">Password</label>
+            <input class="input-field" type="password" id="passwordInput" class="form-control" name="password" placeholder="Password" required >
+            </br>
+
+            <a href="/register" class="card-link">&nbsp;have no account?</a>
+        </fieldset>
+        <button type="submit" class="button">Login</button>
+    </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="../javascripts/authentication.js"></script>
+<script src="../javascripts/referer.js"></script>
+
+<script>
+    let _authForm = document.getElementById('login-form');
+    _authForm.onsubmit = function(event) {
+        event.preventDefault();
+        login();
+    }
+</script>

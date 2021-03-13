@@ -1,0 +1,148 @@
+<title id="head-post-title">Viral Photo</title>
+<div id="navigation-bar"></div>
+
+<!-- Image show -->
+<div id="image-container" class="container mt-4" hidden>
+    <div class="row">
+        <!-- Image -->
+        <div class="col-sm-12 col-lg-8 mb-2">
+            <div class="card bg-dark text-white">
+                <img id="post-photo" src="#" class="card-img-top" alt="Error getting image, please try again later.">
+                <div class="card-body">
+                    <h3 id="post-title" class="card-title"></h3>
+                    <p id="post-description" class="card-text"></p>
+                </div>
+            </div>
+        </div>
+        <!--Information -->
+        <div class="col-sm-12 col-lg-4">
+            <div class="card bg-dark text-white">
+                <div class="card-body">
+                    <h5 class="card-text text-muted">Post Information</h5>
+                    <p class="card-text">
+                        Uploaded by <strong><a id="post-author" href="#"></a></strong><br/>
+                        Published <span id="post-date"></span>
+                    </p>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="post-url" aria-describedby="post-url" readonly>
+                        <small id="post-url-help" class="form-text text-muted">Click the link to copy.</small>
+                    </div>
+                    <hr/>
+
+                    <h5 class="card-text text-muted">Statistics</h5>
+                    <ul class="list-inline">
+                        <li class="list-inline-item">
+                            <i class="fas fa-comment"></i>
+                            <strong id="post-comments"></strong> comments
+                        </li>
+                        <li class="list-inline-item">
+                            <i class="fas fa-eye"></i>
+                            <strong id="post-views"></strong> views
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Comments Container-->
+<div id="comments-container" class="container mt-2 mb-5" hidden>
+    <div class="row">
+        <div class="col-sm-12 col-lg-8">
+            <div class="card bg-dark text-white">
+                <div class="card-body">
+                    <h5 class="card-title text-muted">Comments</h5>
+
+                    <!-- No User Found -->
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div id="comment-no-user-alert" hidden>
+                                <div class="alert alert-danger " role="alert">
+                                    You must be logged in to leave a comment,
+                                    <a href="/login" class="alert-link">login</a> or <a href="/register" class="alert-link">create</a> an account.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Comment input form -->
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <form id="comment-form" method="POST" enctype="application/x-www-form-urlencoded">
+                                <div class="form-group">
+                                    <input type="hidden" id="post-id" name="fk_postid">
+                                </div>
+                                <div class="form-group">
+                                        <textarea type="textarea" id="comment-text" class="form-control" name="text" placeholder="Leave a comment" rows="2" required></textarea>
+                                </div>
+                                <button id="submit-comment-button" type="submit" class="btn-sm btn-success float-right mb-3">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Post comments -->
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div id="comment-list" class="list-group">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://momentjs.com/downloads/moment.js"></script>
+<script src="../javascripts/imagePreview_profileData.js"></script>
+<script src="../javascripts/Post_comments_upload.js"></script>
+
+<script>
+    $.get('./components/navigation.html', (data) => {
+        $('#navigation-bar').replaceWith(data);
+    })
+</script>
+<script>
+    let params = new URLSearchParams(window.location.search);
+    if(params.has('id')) {
+        let photoID = params.get('id');
+        getPostData(photoID);
+        setTimeout(() => {
+            getComments(photoID);
+        }, 250);
+        let _form = document.getElementById('comment-form');
+        let _photoIdInput = document.getElementById('post-id');
+
+        _photoIdInput.value = photoID;
+        _form.onsubmit = (event) => {
+            event.preventDefault();
+            addComment(photoID)
+                    .then(() => {
+                        getComments();
+                    })
+                    .catch((err) => {
+                        location.reload('/error?m=Internal server error');
+                    });
+        };
+    }
+</script>
+<script>
+    let _postURL = document.getElementById('post-url');
+    $("#post-url").click(() => {
+        let url = _postURL.value;
+        _postURL.select();
+        _postURL.setSelectionRange(0, 99999);
+        document.execCommand('copy');
+        _postURL.setAttribute('disabled', true);
+        _postURL.value = 'Copied to clipboard!';
+        setTimeout(() => {
+            _postURL.value = url;
+            _postURL.removeAttribute('disabled');
+        }, 5000);
+    })
+</script>

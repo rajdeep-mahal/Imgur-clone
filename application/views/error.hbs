@@ -1,0 +1,18 @@
+<div class="container">
+    <img class="card-img-top mb-4" src="../images/error.gif" alt="Error gif" width="100" height="400">
+    <h2 class="card-title">:( Something went wrong...</h2>
+    <p id="error-message" class="card-text">Please come back later</p>
+    <P id="error-message" class="card-text">Check if you build the project successfully and follow all the steps</p>
+    <P id="error-message" class="card-text">Check if your mySQL server running properly</p>
+    <a href="/"><button class="btn-sm btn-primary">Return to Home</button></a>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    let params = new URLSearchParams(window.location.search);
+    if(params.has('m')) {
+        let _errorMessage = document.getElementById('error-message');
+        let message = params.get('m');
+        _errorMessage.innerText = message;
+    }
+</script>

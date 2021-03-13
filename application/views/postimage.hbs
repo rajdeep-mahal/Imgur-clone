@@ -1,0 +1,44 @@
+<!-- Error -->
+<div id="error-container" class="small-container" hidden>
+    <div id="comment-no-user-alert" >
+        <div id="error-message" class="alert alert-danger " role="alert">
+        </div>
+    </div>
+</div>
+<!-- Image Upload -->
+<div class="small-container">
+    <div class="card bg-dark text-white">
+        <div class="card-body">
+            <form id="post-image" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <input type="text" id="titleInput" class="form-control" name="title" placeholder="Give your post a title" required >
+                </div>
+                <div class="form-group"> <textarea type="textarea" id="descriptionInput" class="form-control" name="description" placeholder="Describe this post" rows="3" required> </textarea>
+                </div>
+                <div class="form-group"> <input type="file" accept="image/*" class="form-control" name="uploadImage" id="imageFile" required >
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="termsCheck" required>
+                    <label for="termsCheck" class="form-check-label"> I agree to the <a href="#" class="card-link">TOS & Privacy</a> rules.
+                    </label>
+                </div>
+                <div class="mt-3 float-right">
+                    <button type="submit" id="upload-button" class="btn btn-sm btn-outline-primary">Upload</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="../javascripts/load_and_upload.js"></script>
+<script>
+    const _form = document.getElementById('post-image');
+    _form.onsubmit = (event) => {
+        event.preventDefault();
+        uploadImage();
+    }
+</script>

@@ -1,0 +1,41 @@
+
+<title id="head-profile-username">Viral Photo</title>
+<div id="navigation-bar"></div>
+
+<div id="profile-container" class="container mt-4" hidden>
+    <div class="card bg-primary text-white">
+        <div class="card-body">
+            <div class="d-flex w-100 justify-content-between">
+                <h4 id="profile-username" class="card-title"></h4>
+                <p>You Registered <strong><span id="profile-register-date" class="text-white"></span></strong></p>
+            </div>
+            <ul class="list-inline float-right">
+                <li class="list-inline-item">
+                    <i class="fas fa-upload"></i>
+                    <strong><span id="post-uploads"></span></strong> uploads
+                </li>
+                <li class="list-inline-item">
+                    <i class="fas fa-eye"></i>
+                    <strong><span id="post-views"></span></strong> views
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div id="image-card-container" class="container card-columns image-card-container" hidden></div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://momentjs.com/downloads/moment.js"></script>
+<script src="../javascripts/imagePreview_profileData.js"></script>
+
+<script>
+    let params = new URLSearchParams(window.location.search);
+    if(params.has('u')) {
+        let username = params.get('u');
+        getUserInformation(username);
+        getUserPosts(username);
+    }
+</script>
